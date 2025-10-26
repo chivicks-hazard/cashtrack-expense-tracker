@@ -1,5 +1,9 @@
+import { Provider } from "@/components/ui/provider";
+import { Box, Heading } from "@chakra-ui/react";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Header from "./components/Header";
+import NavLinks from "./components/NavLinks";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -23,12 +27,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html suppressHydrationWarning lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-row w-dvw h-dvh overflow-hidden`}
       >
-        {children}
+        <Provider>
+          <Box width={"15%"} p={5} className="bg-green-800">
+            <Heading>ExpenseT</Heading>
+
+            <Box mt={5}>
+              <NavLinks />
+            </Box>
+          </Box>
+          <Box width={"85%"}>
+            <Header />
+            {children}
+          </Box>
+        </Provider>
       </body>
     </html>
   );
 }
+
