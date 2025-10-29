@@ -6,7 +6,13 @@ const Header = () => {
   const pathName = usePathname();
 
   return (
-    <Heading padding={5} className="w-full bg-green-800">
+    <Heading
+      padding={5}
+      pos={"fixed"}
+      top={0}
+      // right={0}
+      className="w-full bg-green-800"
+    >
       {pathName.replace("/", "")}
     </Heading>
   );

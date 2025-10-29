@@ -33,13 +33,13 @@ export default function RootLayout({
       >
         <Provider>
           <Box width={"15%"} p={5} className="bg-green-800">
-            <Heading>ExpenseT</Heading>
+            <Heading fontSize={30}>Ca$hTrack</Heading>
 
             <Box mt={5}>
               <NavLinks />
             </Box>
           </Box>
-          <Box width={"85%"}>
+          <Box width={"85%"} mt={"4rem"}>
             <Header />
             {children}
           </Box>
