@@ -41,7 +41,13 @@ const NavLinks = () => {
     <Flex direction={"column"} gap={"5"} mt={20} className="">
       {links.map((link, index) => (
         <Link href={link.href} key={index} className="">
-          <HStack fontSize={20} className="hover:text-green-500">
+          <HStack
+            fontSize={20}
+            p={2}
+            rounded={"md"}
+            color={{ _hover: "primary.lighter" }}
+            bg={{ _hover: "primary.dark" }}
+          >
             <Icon as={link.icon} />
             <Text>{link.label}</Text>
           </HStack>

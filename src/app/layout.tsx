@@ -32,7 +32,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-row w-dvw h-dvh overflow-hidden`}
       >
         <Provider>
-          <Box width={"15%"} p={5} className="bg-green-800">
+          <Box width={"15%"} p={5} bg={"primary.base"}>
             <Heading fontSize={30}>Ca$hTrack</Heading>
 
             <Box mt={5}>

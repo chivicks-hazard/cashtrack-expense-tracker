@@ -11,7 +11,8 @@ const Header = () => {
       pos={"fixed"}
       top={0}
       // right={0}
-      className="w-full bg-green-800"
+      className="w-full"
+      bg={"primary.base"}
     >
       {pathName.replace("/", "")}
     </Heading>
