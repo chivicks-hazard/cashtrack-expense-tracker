@@ -14,7 +14,8 @@ const Header = () => {
       className="w-full"
       bg={"primary.base"}
     >
-      {pathName.replace("/", "")}
+      {pathName.replace("/", "").charAt(0).toUpperCase() +
+        pathName.replace("/", "").slice(1).replaceAll("-", " ")}
     </Heading>
   );
 };
