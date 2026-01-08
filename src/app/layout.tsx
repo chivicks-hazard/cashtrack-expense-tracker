@@ -1,9 +1,6 @@
 import { Provider } from "@/components/ui/provider";
-import { Box, Heading } from "@chakra-ui/react";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Header from "./components/Header";
-import NavLinks from "./components/NavLinks";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -31,21 +28,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-row w-dvw h-dvh overflow-hidden`}
       >
-        <Provider>
-          <Box width={"15%"} p={5} bg={"primary.base"}>
-            <Heading fontSize={30}>Ca$hTrack</Heading>
-
-            <Box mt={5}>
-              <NavLinks />
-            </Box>
-          </Box>
-          <Box width={"85%"} mt={"4rem"}>
-            <Header />
-            {children}
-          </Box>
-        </Provider>
+        <Provider>{children}</Provider>
       </body>
     </html>
   );
 }
-
