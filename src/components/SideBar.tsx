@@ -1,4 +1,43 @@
+"use client";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
 const SideBar = () => {
+  const pathName = usePathname();
+
+  const links = [
+    {
+      name: "Overview",
+      href: "/overview",
+      icon: "dashboard",
+    },
+    {
+      name: "Transactions",
+      href: "/transactions",
+      icon: "payments",
+    },
+    {
+      name: "Categories",
+      href: "/categories",
+      icon: "category",
+    },
+    {
+      name: "Analytics",
+      href: "/analytics",
+      icon: "analytics",
+    },
+    {
+      name: "Budgets",
+      href: "/budgets",
+      icon: "account_balance_wallet",
+    },
+    {
+      name: "Settings",
+      href: "/settings",
+      icon: "settings",
+    },
+  ];
+
   return (
     <aside className="w-[260px] h-screen sticky left-0 top-0 bg-surface-container-lowest border-r border-outline-variant flex flex-col p-lg overflow-y-auto hidden md:flex z-50">
       <div className="flex items-center gap-3 mb-8 px-2">
@@ -21,78 +60,21 @@ const SideBar = () => {
         New Transaction
       </button>
       <nav className="flex-1 space-y-1">
-        <a
-          className="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors duration-200"
-          href="#"
-        >
-          <span
-            className="material-symbols-outlined text-[20px]"
-            data-icon="dashboard"
+        {links.map((link, i) => (
+          <Link
+            key={i}
+            href={link.href}
+            className={`flex items-center gap-3 px-3 py-2 rounded-lg ${pathName == link.href ? "text-primary font-bold bg-surface-container-high transition-transform transform scale-95" : "text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors duration-200"}`}
           >
-            dashboard
-          </span>
-          <span className="font-title-md text-title-md">Overview</span>
-        </a>
-        <a
-          className="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors duration-200"
-          href="#"
-        >
-          <span
-            className="material-symbols-outlined text-[20px]"
-            data-icon="payments"
-          >
-            payments
-          </span>
-          <span className="font-title-md text-title-md">Transactions</span>
-        </a>
-        <a
-          className="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors duration-200"
-          href="#"
-        >
-          <span
-            className="material-symbols-outlined text-[20px]"
-            data-icon="category"
-          >
-            category
-          </span>
-          <span className="font-title-md text-title-md">Categories</span>
-        </a>
-        <a
-          className="flex items-center gap-3 px-3 py-2 rounded-lg text-primary font-bold bg-surface-container-high transition-transform transform scale-95"
-          href="#"
-        >
-          <span
-            className="material-symbols-outlined fill-icon text-[20px]"
-            data-icon="analytics"
-          >
-            analytics
-          </span>
-          <span className="font-title-md text-title-md">Analytics</span>
-        </a>
-        <a
-          className="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors duration-200"
-          href="#"
-        >
-          <span
-            className="material-symbols-outlined text-[20px]"
-            data-icon="account_balance_wallet"
-          >
-            account_balance_wallet
-          </span>
-          <span className="font-title-md text-title-md">Budgets</span>
-        </a>
-        <a
-          className="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors duration-200"
-          href="#"
-        >
-          <span
-            className="material-symbols-outlined text-[20px]"
-            data-icon="settings"
-          >
-            settings
-          </span>
-          <span className="font-title-md text-title-md">Settings</span>
-        </a>
+            <span
+              className="material-symbols-outlined text-[20px]"
+              data-icon={link.icon}
+            >
+              {link.icon}
+            </span>
+            <span className="font-title-md text-title-md">{link.name}</span>
+          </Link>
+        ))}
       </nav>
     </aside>
   );
