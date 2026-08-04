@@ -1,4 +1,50 @@
+"use client";
+import { useSignUp } from "@/lib/mutations";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { toast } from "sonner";
+
 const SignUpPage = () => {
+  const router = useRouter();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+
+  const signUpMutation = useSignUp();
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    signUpMutation.mutate(
+      { email, password, firstName, lastName, phoneNumber },
+      {
+        onSuccess: (data) => {
+          toast.success("Sign up successful!", {
+            duration: 2000,
+            style: {
+              border: "1px solid var(--color-success)",
+              color: "var(--color-success)",
+            },
+          });
+          router.push("/overview");
+        },
+        onError: (error: any) => {
+          console.error("Sign up failed:", error.message);
+          toast.error(`Sign up failed: ${error.message}`, {
+            duration: 2000,
+            style: {
+              border: "1px solid var(--color-error)",
+              color: "var(--color-error)",
+            },
+          });
+        },
+      },
+    );
+  };
+
   return (
     <div className="h-full flex antialiased bg-background text-on-background font-body-md text-body-md min-h-screen w-full">
       {/* <!-- Split Screen Layout --> */}
@@ -66,26 +112,58 @@ const SignUpPage = () => {
             </div>
             <div className="mt-8">
               {/* <!-- Form --> */}
-              <form action="#" className="space-y-6" method="POST">
-                {/* <!-- Full Name --> */}
+              <form
+                action="#"
+                className="space-y-6"
+                method="POST"
+                onSubmit={handleSubmit}
+              >
+                {/* <!-- First Name --> */}
                 <div>
                   <label
                     className="block font-label-md text-label-md text-on-surface mb-1"
-                    htmlFor="name"
+                    htmlFor="firstName"
                   >
-                    Full Name
+                    First Name
                   </label>
                   <div className="mt-1">
                     <input
-                      autoComplete="name"
+                      autoComplete="firstName"
                       className="block w-full appearance-none rounded-lg border border-outline-variant bg-surface px-3 py-2 text-on-surface placeholder-on-surface-variant focus:border-primary-container focus:outline-none focus:ring-2 focus:ring-primary-container/20 sm:text-sm font-body-md text-body-md transition-shadow"
-                      id="name"
-                      name="name"
+                      id="firstName"
+                      name="firstName"
                       required={true}
                       type="text"
+                      onChange={(e) => {
+                        setFirstName(e.target.value);
+                      }}
                     />
                   </div>
                 </div>
+
+                {/* <!-- Last Name --> */}
+                <div>
+                  <label
+                    className="block font-label-md text-label-md text-on-surface mb-1"
+                    htmlFor="lastName"
+                  >
+                    Last Name
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      autoComplete="lastName"
+                      className="block w-full appearance-none rounded-lg border border-outline-variant bg-surface px-3 py-2 text-on-surface placeholder-on-surface-variant focus:border-primary-container focus:outline-none focus:ring-2 focus:ring-primary-container/20 sm:text-sm font-body-md text-body-md transition-shadow"
+                      id="lastName"
+                      name="lastName"
+                      required={true}
+                      type="text"
+                      onChange={(e) => {
+                        setLastName(e.target.value);
+                      }}
+                    />
+                  </div>
+                </div>
+
                 {/* <!-- Email --> */}
                 <div>
                   <label
@@ -102,9 +180,36 @@ const SignUpPage = () => {
                       name="email"
                       required={true}
                       type="email"
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                      }}
                     />
                   </div>
                 </div>
+
+                {/* <!-- Last Name --> */}
+                <div>
+                  <label
+                    className="block font-label-md text-label-md text-on-surface mb-1"
+                    htmlFor="phoneNumber"
+                  >
+                    Phone Number
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      autoComplete="phoneNumber"
+                      className="block w-full appearance-none rounded-lg border border-outline-variant bg-surface px-3 py-2 text-on-surface placeholder-on-surface-variant focus:border-primary-container focus:outline-none focus:ring-2 focus:ring-primary-container/20 sm:text-sm font-body-md text-body-md transition-shadow"
+                      id="phoneNumber"
+                      name="phoneNumber"
+                      required={true}
+                      type="text"
+                      onChange={(e) => {
+                        setPhoneNumber(e.target.value);
+                      }}
+                    />
+                  </div>
+                </div>
+
                 {/* <!-- Password --> */}
                 <div className="space-y-1">
                   <label
@@ -115,12 +220,15 @@ const SignUpPage = () => {
                   </label>
                   <div className="relative mt-1 rounded-md shadow-sm">
                     <input
-                      autoComplete="new-password"
+                      autoComplete="password"
                       className="block w-full appearance-none rounded-lg border border-outline-variant bg-surface px-3 py-2 pr-10 text-on-surface placeholder-on-surface-variant focus:border-primary-container focus:outline-none focus:ring-2 focus:ring-primary-container/20 sm:text-sm font-body-md text-body-md transition-shadow"
                       id="password"
                       name="password"
                       required={true}
                       type="password"
+                      onChange={(e) => {
+                        setPassword(e.target.value);
+                      }}
                     />
                     <button
                       className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer text-on-surface-variant hover:text-primary transition-colors focus:outline-none"
@@ -136,7 +244,7 @@ const SignUpPage = () => {
                   </div>
                 </div>
                 {/* <!-- Terms Checkbox --> */}
-                <div className="flex items-center">
+                {/* <div className="flex items-center">
                   <input
                     className="h-4 w-4 rounded border-outline-variant text-primary focus:ring-primary-container/20"
                     id="terms"
@@ -163,7 +271,7 @@ const SignUpPage = () => {
                       Privacy Policy
                     </a>
                   </label>
-                </div>
+                </div> */}
                 {/* <!-- Submit --> */}
                 <div>
                   <button
@@ -264,3 +372,4 @@ const SignUpPage = () => {
 };
 
 export default SignUpPage;
+

@@ -1,4 +1,5 @@
 "use client";
+import { useLogin } from "@/lib/mutations";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "sonner";
@@ -9,10 +10,38 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
+  const loginMutation = useLogin();
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    try {
+    loginMutation.mutate(
+      { email, password },
+      {
+        onSuccess: (data) => {
+          toast.success("Login successful!", {
+            duration: 2000,
+            style: {
+              border: "1px solid var(--color-success)",
+              color: "var(--color-success)",
+            },
+          });
+          router.push("/overview");
+        },
+        onError: (error: any) => {
+          console.error("Login failed:", error);
+          toast.error("Login failed. Please check your credentials.", {
+            duration: 2000,
+            style: {
+              border: "1px solid var(--color-error)",
+              color: "var(--color-error)",
+            },
+          });
+        },
+      },
+    );
+
+    /* try {
       const res = await fetch("/api/auth/login", {
         method: "POST",
         body: JSON.stringify({ email, password }),
@@ -32,7 +61,7 @@ const LoginPage = () => {
       }
     } catch (error) {
       console.log(error);
-    }
+    } */
   };
 
   return (

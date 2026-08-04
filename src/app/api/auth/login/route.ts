@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
+import BASE_API_URL from "../..";
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
 
-    const response = await fetch("http://localhost:5000/auth/login", {
+    const response = await fetch(`${BASE_API_URL}/auth/login`, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -13,6 +14,7 @@ export async function POST(req: NextRequest) {
     });
 
     const data = await response.json();
+    console.log(data);
 
     const res = NextResponse.json(data, { status: response.status });
 
